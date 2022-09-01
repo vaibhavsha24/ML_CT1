@@ -1,9 +1,10 @@
 import librosa
 import matplotlib.pyplot as plt
-from scipy.io import wavfile as wav
 from glob import glob
 from librosa import feature
 import numpy as np
+import csv
+
 #directories of normal audios
 # Press the green button in the gutter to run the script.
 
@@ -13,7 +14,6 @@ fn_list_i = [
     feature.chroma_stft,
     feature.spectral_centroid,
     feature.spectral_bandwidth,
-    feature.spectral_rolloff
 ]
 
 fn_list_ii = [
@@ -37,11 +37,33 @@ if __name__ == '__main__':
     # plt.show()
     # wave_sample_rate, wave_audio = wav.read(audio_file_path)
     # wave_audio
-    norm_data_dir = "D:\\1st sem\\ML\\CT\\Actor_01\\"
-    norm_audio_files = glob(norm_data_dir + '*.wav')
-    norm_audios_feat = []
-    for file in norm_audio_files:
-        y, sr = librosa.load(file, sr=None)
-        feature_vector = get_feature_vector(y, sr)
-        norm_audios_feat.append(feature_vector)
-    print(norm_audios_feat)
+    norm_audio_list=[]
+    for i in range(1,24):
+        actor_dir="Actor_0"+str(i)
+        if(i>=10):
+            actor_dir="Actor_"+str(i)
+        norm_data_dir = "C:\\Users\\Admin\\PycharmProjects\\ML_CT1\\venv\\files\\{a}\\".format(a=actor_dir)
+        norm_audio_files = glob(norm_data_dir + '*.wav')
+        norm_audios_feat = []
+        for file in norm_audio_files:
+            y, sr = librosa.load(file, sr=None)
+            feature_vector = get_feature_vector(y, sr)
+            norm_audios_feat.append(feature_vector)
+        norm_audio_list.append(norm_audios_feat)
+    print(norm_audio_list)
+
+    norm_output = 'normals_00.csv'
+    header = [
+    'chroma_stft',
+    'spectral_centroid',
+    'spectral_bandwidth',
+    'spectral_rolloff',
+    'rmse',
+    'zero_crossing_rate'
+    ]
+    with open(norm_output,'+w') as f:
+        csv_writer = csv.writer(f, delimiter= ',' )
+        csv_writer.writerow(header)
+        csv_writer.writerows(norm_audio_list)
+
+
