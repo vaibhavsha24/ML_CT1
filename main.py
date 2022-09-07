@@ -97,40 +97,40 @@ def get_feature_vector(y,sr):
 
 
 if __name__ == "__main__":
-    PCA_ALGO()
-    # norm_audio_list=[]
-    # for i in range(0,24):
-    #     actor_dir="Actor_0"+str(i)
-    #     if(i>=11):
-    #         actor_dir="Actor_"+str(i)
-    #     norm_data_dir = "C:\\Users\\Admin\\PycharmProjects\\ML_CT1\\venv\\files\\{a}\\".format(a=actor_dir)
-    #     norm_audio_files = glob(norm_data_dir +"*.wav")
-    #     norm_audios_feat = []
-    #     for file in norm_audio_files:
-    #         y,sr = librosa.load(file,sr=None)
-    #         feature_vector = get_feature_vector(y,sr)
-    #         norm_audios_feat.append(feature_vector)
-    #     norm_audio_list.append(norm_audios_feat)
-    # print(norm_audio_list)
-    #
-    # norm_output = "normals_00.csv"
-    # header = [
-    # "chroma_stft",
-    # "spectral_centroid",
-    # "spectral_bandwidth",
-    # "chroma_cens",
-    # "chroma_mfcc",
-    # "melspectrogram",
-    # "spectral_contrast",
-    # "tonnetz",
-    # "chroma_cqt",
-    # "rmse",
-    # "zero_crossing_rate"
-    # ]
-    #
-    # with open(norm_output,"+w") as f:
-    #     csv_writer = csv.writer(f,delimiter=',' )
-    #     csv_writer.writerow(header)
-    #     csv_writer.writerows(norm_audio_list)
+    # PCA_ALGO()
+    norm_audio_list=[]
+    for i in range(0,24):
+        actor_dir="Actor_0"+str(i)
+        if(i>=11):
+            actor_dir="Actor_"+str(i)
+        norm_data_dir = "C:\\Users\\Admin\\PycharmProjects\\ML_CT1\\venv\\files\\{a}\\".format(a=actor_dir)
+        norm_audio_files = glob(norm_data_dir +"*.wav")
+        norm_audios_feat = []
+        for file in norm_audio_files:
+            y,sr = librosa.load(file,sr=None)
+            feature_vector = get_feature_vector(y,sr)
+            norm_audios_feat.append(feature_vector)
+        norm_audio_list.append(norm_audios_feat)
+    print(norm_audio_list)
+
+    norm_output = "normals_00.csv"
+    header = [
+    "chroma_stft",
+    "spectral_centroid",
+    "spectral_bandwidth",
+    "chroma_cens",
+    "chroma_mfcc",
+    "melspectrogram",
+    "spectral_contrast",
+    "tonnetz",
+    "chroma_cqt",
+    "rmse",
+    "zero_crossing_rate"
+    ]
+
+    with open(norm_output,"+w") as f:
+        csv_writer = csv.writer(f,delimiter=',' )
+        csv_writer.writerow(header)
+        csv_writer.writerows(norm_audio_list)
 
 
